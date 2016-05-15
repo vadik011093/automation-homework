@@ -1,0 +1,65 @@
+Example:
+
+fields
+    ID
+    Title
+    Description
+    PrimaryActor
+    Preconditions
+    Postconditions
+    Main
+    SuccessScenario
+    Extensions
+    FrequencyOfUse
+    Status
+    Owner
+    Priority
+end
+
+useCase helloWorld
+    ID:	"UC6"
+    Title:	"Register for courses"
+    Description:	"Student accesses the system and views the courses currently available for him to register Then he selects the courses and registers for them"
+    PrimaryActor:	"Student"
+    Preconditions:	"Student is logged into system"
+    Postconditions:	"Student is registered for courses"
+    Main: ""
+    SuccessScenario: "Student selects Register New Courses from the menu System displays list of courses available for registering 
+    Student selects one or more courses he wants to register for 
+    Student clicks Submit button System registers student for the selected courses and displays a confirmation message"
+    Extensions:	"No courses are available for this student
+    System displays error message saying no courses are available and provides the reason  how to rectify if possible
+    Student either backs out of this use case or tries again after rectifying the cause a Some courses could not be registered
+    System displays message showing which courses were registered and which courses were not registered along with a reason for each failure None of the courses could be registered
+    System displays message saying none of the courses could be registered along with a reason for each failure"
+    FrequencyOfUse:	"A few times every quarter"
+    Status:	"Pending Review"
+    Owner:	"John Smith"
+    Priority:	"P Medium"
+end
+
+User invoke Math.sum with parameters(12, 3) then return 15
+
+User invoke String.concat with parameters("ab", "cd") then return "abcd"
+
+
+
+Result:
+
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+public class DemoTest {
+
+	@Test
+	public void testMethod() { 
+		assertEquals(new Math().sum(12, 3), 15)
+	}
+		
+	@Test
+	public void testMethod() { 
+		assertEquals(new String().concat("ab", "cd"), "abcd")
+	}
+		
+}
