@@ -23,8 +23,12 @@ UseCase:
 Body:
 	param=[Param] ':' name=Primitive;  
 
- Test:
-	testClass=TestClass 'invoke' method=Method 'with parameters(' parameters+=Parameters* ')' 'then return' returnValue=Parameters
+Test:
+	scenario=Scenario testClass=TestClass 'invoke' method=Method 'with parameters(' parameters+=Parameters* ')' 'then return' returnValue=Parameters
+;
+
+Scenario:
+	'Scenario ' testName=ID
 ;
 
 TestClass:

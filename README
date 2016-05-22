@@ -38,9 +38,13 @@ useCase helloWorld
     Priority:	"P Medium"
 end
 
-User invoke Math.sum with parameters(12, 3) then return 15
+Scenario testFullName UserService invoke createDetails with parameters(Bean user User {firstName="Vadim" lastName="Tisov"} Bean test Test{})
+then return Bean result UserDetails {fullName="Vadim Tisov"}
 
-User invoke String.concat with parameters("ab", "cd") then return "abcd"
+Scenario testShortName UserService invoke createDetails with parameters(Bean user User {firstName="Vadim" lastName="Tisov"} Bean test Test{})
+then return Bean result UserDetails {shortName="Vadik"}
+
+
 
 
 
@@ -53,13 +57,31 @@ import static org.junit.Assert.*;
 public class DemoTest {
 
 	@Test
-	public void testMethod() { 
-		assertEquals(new Math().sum(12, 3), 15)
+	public void testFullName() { 
+		
+		User user = new User();
+	        		user.setFirstName("Vadim");
+	        		user.setLastName("Tisov");
+		Test test = new Test();
+		
+		UserService testBean = new UserService();
+		UserDetails result = testBean.createDetails(user, test);
+		
+		assertEquals(result.fullName(), "Vadim Tisov")
 	}
 		
 	@Test
-	public void testMethod() { 
-		assertEquals(new String().concat("ab", "cd"), "abcd")
+	public void testShortName() { 
+		
+		User user = new User();
+	        		user.setFirstName("Vadim");
+	        		user.setLastName("Tisov");
+		Test test = new Test();
+		
+		UserService testBean = new UserService();
+		UserDetails result = testBean.createDetails(user, test);
+		
+		assertEquals(result.shortName(), "Vadik")
 	}
 		
 }

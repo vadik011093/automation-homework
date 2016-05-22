@@ -29,7 +29,7 @@ class MyDslGenerator extends AbstractGenerator {
 	def compile(Test t) 
 	'''
         	@Test
-        	public void testMethod() { 
+        	public void «t.scenario.testName»() { 
         		
         		«var state = new State()»
         		«FOR p: t.parameters»
