@@ -26,10 +26,42 @@ class MyDslGenerator extends AbstractGenerator {
 	}
 	'''
 	
-	def compile(Test t) '''
+	def compile(Test t) 
+	'''
         	@Test
         	public void testMethod() { 
-        		assertEquals(new «t.testClass.name»().«t.method.name»(«t.parameters»), «t.returnValue»)
+        		
+        		«var state = new State()»
+        		«FOR p: t.parameters»
+        	    	«state.add(p.value.name)»
+        			«p.value.clazz» «p.value.name» = new «p.value.clazz»();
+        		«FOR f : p.value.fields»
+        			«p.value.name».set«f.name.toFirstUpper»(«f.value»);
+        		«ENDFOR»
+        		«ENDFOR»
+        		
+        		«t.testClass.name» testBean = new «t.testClass.name»();
+        		«t.returnValue.value.clazz» «t.returnValue.value.name» = testBean.«t.method.name»(«state.values.join(', ')»);
+        		
+        		«FOR f : t.returnValue.value.fields»
+        			assertEquals(«t.returnValue.value.name».«f.name»(), «f.value»)
+        		«ENDFOR»
         	}
     '''
+    
+    static class State {
+   
+	val myList = newArrayList
+	
+    def add(String name) {
+        myList.add(name)
+        myList.trimToSize()
+    }
+    
+    def values() {
+    	return myList;
+    }
+    
+}
+    
 }

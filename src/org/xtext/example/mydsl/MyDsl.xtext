@@ -7,12 +7,12 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 UseCaseDsl :
 	{UseCaseDsl}
 	('fields'
-	fields+=Field+
+	params+=Param+
 	'end')?
 	useCases+=UseCase*
 	(tests+=Test)*;
 
-Field:
+Param:
 	name=ID;
 
 UseCase:
@@ -21,10 +21,10 @@ UseCase:
 	'end';
 
 Body:
-	field=[Field] ':' name=Primitive;  
+	param=[Param] ':' name=Primitive;  
 
  Test:
-	'User invoke' testClass=TestClass '.' method=Method 'with parameters(' parameters=Parameters ')' 'then return' returnValue=ReturnValue
+	testClass=TestClass 'invoke' method=Method 'with parameters(' parameters+=Parameters* ')' 'then return' returnValue=Parameters
 ;
 
 TestClass:
@@ -36,13 +36,17 @@ Method:
 ;
 
 Parameters:
-	Primitive (',' Primitive)*;
-
-ReturnValue:
-	Primitive
+	value=Bean;
+	
+Bean:
+	'Bean' name=ID clazz=ID '{' fields+=Field* '}'
 ;
 
-terminal Primitive returns ecore::EChar:
+Field:
+	name=ID '=' value=Primitive
+;
+
+terminal Primitive returns ecore::EString:
 	(('0'..'9')* | Text)
 ;
 	
